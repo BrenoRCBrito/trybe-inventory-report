@@ -22,16 +22,16 @@ class Inventory:
     def open_xml(path):
         with open(path, encoding="utf-8") as file:
             xml_dict = xmltodict.parse(file.read())
-            print(xml_dict)
             return xml_dict["dataset"]["record"]
 
     @staticmethod
     def import_data(path, report_type):
+        file_type = path.split(".")[1]
         report = None
         products = None
-        if path.split(".")[1] == "csv":
+        if file_type == "csv":
             products = Inventory.open_csv(path)
-        elif path.split(".")[1] == "json":
+        elif file_type == "json":
             products = Inventory.open_json(path)
         else:
             products = Inventory.open_xml(path)
